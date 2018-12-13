@@ -12,13 +12,3 @@
 #include <sys/ipc.h>
 #include <sys/stat.h>
 #include <sys/sem.h>
-
-#define KEY 0xD00DFACE
-#define NAME "swag.txt"
-
-union semun {
-    int val;
-    struct semid_ds * buf;
-    unsigned short * array;
-    struct seminfo * __buf;
-};
