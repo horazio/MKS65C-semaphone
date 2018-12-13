@@ -7,7 +7,7 @@ int main(){
     fgets(inlin, 3, stdin);
    
     //Open the file
-    int fd = open(NAME, O_CREAT | O_APPEND | O_RDWR, 0777);
+    int fd = open(NAME, O_CREAT | O_RDWR, 0777);
 
     //Check for the input
     if(!(strcmp(inlin, "-c"))){
@@ -37,7 +37,6 @@ int main(){
         struct stat info;
         stat(NAME, &info);
         int size = info.st_size;
-        printf("%i", size);
         char buffer[size];
         read(fd, buffer, size);
        
@@ -55,6 +54,10 @@ int main(){
         
         //semophore gonzo
         semctl(semd, 0, IPC_RMID);
+        
+        //file gonzo
+        fd = open(NAME, O_CREAT | O_TRUNC, 0777);
+        write(fd, "", 1);
         
         //Printing out the story
         printf("Everything reset, this was the file:\n%s\n", buffer);
