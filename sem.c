@@ -3,7 +3,7 @@
 int main(){
   
     char inlin[3];
-    printf("What do you want?");
+    printf("What do you want?\n");
     fgets(inlin, 3, stdin);
    
     //Open the file
@@ -25,7 +25,7 @@ int main(){
         }
 
         //SEMOPHORES
-        int semd = semget(KEY, 1, IPC_CREAT | IPC_EXCL);
+        int semd = semget(KEY, 1, IPC_CREAT | IPC_EXCL | IPC_NOWAIT);
       
         if(semd == -1){
           printf("Errror: %s\n", strerror(errno));
@@ -51,7 +51,10 @@ int main(){
         int semd = semget(KEY, 1, 0);
         struct sembuf boof;
         boof.sem_num = 0;
-        semop(semd, &boof, 1);
+        if (semop(semd, &boof, 1) == -1) {
+            printf("Errror: %s\n", strerror(errno));
+            exit(1);
+        }
         
         //Shared memory gonzo
         int id = shmget(KEY, sizeof(int), 0);

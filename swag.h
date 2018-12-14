@@ -13,7 +13,7 @@
 #include <sys/stat.h>
 #include <sys/sem.h>
 
-#define KEY 0xD00DFACE
+#define KEY 0xD00D5EED
 #define NAME "swag.txt"
 
 union semun {
