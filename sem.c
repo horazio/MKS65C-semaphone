@@ -1,10 +1,9 @@
 #include "swag.h"
 
-int main(){
+int main(int argc, char *argv[]){
   
-    char inlin[3];
-    printf("What do you want?");
-    fgets(inlin, 3, stdin);
+    char * inlin;
+    inlin = argv[1];
    
     //Open the file
     int fd = open(NAME, O_CREAT | O_RDWR, 0777);
