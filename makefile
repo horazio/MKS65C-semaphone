@@ -7,3 +7,8 @@ run: Write
 
 setup: Sem
 	./Sem
+
+clean: Write Sem 
+	rm Write
+	rm Sem
+	rm swag.txt
