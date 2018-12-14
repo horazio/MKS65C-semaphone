@@ -14,9 +14,14 @@ int main(){
 
         //SHARED MEMORY
        
-       if(shmget(KEY, sizeof(int) , 0777 | IPC_CREAT) == -1){
+       int id = shmget(KEY, sizeof(int) , 0777 | IPC_CREAT);
+       if(id == -1){
             printf("Errror: %s\n", strerror(errno));
             exit(1);
+        }else{
+            int * data = shmat(id, NULL, 0);
+            * data = 0; 
+            shmdt(data);
         }
 
         //SEMOPHORES
@@ -62,7 +67,6 @@ int main(){
         //Printing out the story
         printf("Everything reset, this was the file:\n%s\n", buffer);
       } else if(!(strcmp(inlin, "-v"))){
-        
         printf("%s\n", buffer);
       }
     }
