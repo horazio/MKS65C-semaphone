@@ -23,7 +23,7 @@ int main(){
       printf("Woah you get the first line...\n");
   }else{
      char buffy[* data];
-     lseek(fd, (* data) * -1, SEEK_END);
+     lseek(fd, ((* data) * -1) -1, SEEK_END);
      read(fd, buffy, * data);
      printf("The latest line is:\n%s\n", buffy);
   }
@@ -32,12 +32,12 @@ int main(){
    char inlin[256];
    printf("Your sentence: ");
    fgets(inlin, 256, stdin);
-   inlin[strlen(inlin)-1] = '\0';
+   //inlin[strlen(inlin)-1] = '\0';
    printf("'%s'\n", inlin);
    int len = strlen(inlin);
   
   //writing into the file
-   lseek(fd, 0, SEEK_END);
+   //lseek(fd, 0, SEEK_END);
    write(fd, inlin, len);
   
   //writing into the shared memory
