@@ -25,7 +25,7 @@ int main(){
         }
 
         //SEMOPHORES
-        int semd = semget(KEY, 1, IPC_CREAT | IPC_EXCL | IPC_NOWAIT);
+        int semd = semget(KEY, 1, IPC_CREAT | IPC_EXCL);
       
         if(semd == -1){
           printf("Errror: %s\n", strerror(errno));
@@ -53,7 +53,7 @@ int main(){
         boof.sem_num = 0;
         if (semop(semd, &boof, 1) == -1) {
             printf("Errror: %s\n", strerror(errno));
-            exit(1);
+            exit(0);
         }
         
         //Shared memory gonzo

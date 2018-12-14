@@ -34,7 +34,14 @@ int main(){
    fgets(inlin, 256, stdin);
    inlin[strlen(inlin) - 1] = '\0';
    printf("'%s'\n", inlin);
+   int len = strlen(inlin);
   
+  //writing into the file
+   lseek(fd, 0, SEEK_END);
+   write(fd, inlin, len);
+  
+  //writing into the shared memory
+   * data = len;
   
   //Releasing shared memoy
   shmdt(data);
