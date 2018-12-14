@@ -3,7 +3,7 @@
 int main(){
   
     char inlin[3];
-    printf("What do you want?\n");
+    printf("What do you want? (-c, -v, -r) \n");
     fgets(inlin, 3, stdin);
    
     //Open the file
@@ -12,8 +12,7 @@ int main(){
     //Check for the input
     if(!(strcmp(inlin, "-c"))){
 
-        //SHARED MEMORY
-       
+        //SHARED MEMORY 
        int id = shmget(KEY, sizeof(int) , 0777 | IPC_CREAT);
        if(id == -1){
             printf("Errror: %s\n", strerror(errno));
@@ -61,8 +60,11 @@ int main(){
         shmctl(id, IPC_RMID, NULL);
         
         //semophore gonzo
-        semctl(semd, 0, IPC_RMID);
-        
+        if (semctl(semd, 0, IPC_RMID) == -1) {
+          printf("Errror: %s", strerror(errno));
+          exit(1);
+        }
+          
         //file gonzo
         fd = open(NAME, O_CREAT | O_TRUNC, 0777);
         write(fd, "", 1);
